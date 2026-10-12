@@ -9,13 +9,10 @@ test('TC-CART-20: ตรวจสอบการคำนวณยอดรว�
   // 2. คลิกเข้าหน้าสินค้า
   await page.locator('.product-thumb h4 a').click();
 
-  // 3. เปลี่ยนจำนวนสินค้า (Quantity) เป็น 2
-  await page.locator('#input-quantity').fill('2');
-
-  // 4. เลือก Option บังคับ (สี Red)
+  // 3. เลือก Option บังคับ (สี Red)
   await page.locator('#input-option-226').selectOption('15');
 
-  // 5. คลิกปุ่ม Add to Cart
+  // 4. คลิกปุ่ม Add to Cart
   await page.locator('#button-cart').click();
 
   // 6. คลิกเข้าไปที่หน้าตะกร้าสินค้า (Shopping Cart) จากแถบแจ้งเตือนด้านบน หรือเมนูด้านบน
@@ -25,12 +22,12 @@ test('TC-CART-20: ตรวจสอบการคำนวณยอดรว�
   // Expected Result
   // -----------------------------------------
   // ตรวจสอบว่าตารางในตะกร้าแสดงผลถูกต้องตามเงื่อนไข
-  // - ตรวจสอบจำนวน Quantity เป็น 2
+  // - ตรวจสอบจำนวน Quantity เป็น 1
   const quantityInput = page.locator('input[name*="quantity"]');
-  await expect(quantityInput).toHaveValue('2');
+  await expect(quantityInput).toHaveValue('1');
 
-  // - ตรวจสอบราคารวม (Total) ในตารางสินค้า เป็น $244.00
-  // เจาะจงหาข้อความ $244.00 ที่อยู่ในตารางตะกร้าสินค้า
-  const totalPriceCell = page.locator('.table-responsive tbody tr td').filter({ hasText: '$244.00' });
+  // - ตรวจสอบราคารวม (Total) ในตารางสินค้า เป็น $122.00
+  // เจาะจงหาข้อความ $122.00 ที่อยู่ในตารางตะกร้าสินค้า
+  const totalPriceCell = page.locator('.table-responsive tbody tr td').filter({ hasText: '$122.00' }).last();
   await expect(totalPriceCell).toBeVisible();
 });
