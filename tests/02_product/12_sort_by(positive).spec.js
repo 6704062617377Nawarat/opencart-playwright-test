@@ -21,6 +21,7 @@ test('TC-PROD-12: ทดสอบการจัดเรียงสินค�
   // สร้าง Array ใหม่มาเรียงตัวเลขจากน้อยไปมาก เพื่อไว้เป็นตัวเทียบ
   const sortedPrices = [...productPrices].sort((a, b) => a - b);
 
+  //expected Result
   // ตรวจสอบว่าราคาบนหน้าเว็บ (productPrices) เรียงถูกต้องเหมือน Array ที่เราคำนวณไว้ (sortedPrices) หรือไม่
   expect(productPrices).toEqual(sortedPrices);
 });

@@ -22,10 +22,10 @@ test('TC-CART-21: ทดสอบการเปลี่ยนจำนวน�
   // -----------------------------------------
   // Expected Result
   // -----------------------------------------
-  // - ตรวจสอบว่าช่อง Quantity อัปเดตเป็น 2
+  // ตรวจสอบว่าช่อง Quantity อัปเดตเป็น 2
   await expect(quantityInput).toHaveValue('2');
 
-  // - ตรวจสอบว่าราคารวม (Total) ในตารางอัปเดตเป็น $244.00
+  // ตรวจสอบว่าราคารวม (Total) ในตารางอัปเดตเป็น $244.00
   const totalPriceCell = page.locator('.table-responsive tbody tr td').filter({ hasText: '$244.00' }).last();
   await expect(totalPriceCell).toBeVisible();
 });

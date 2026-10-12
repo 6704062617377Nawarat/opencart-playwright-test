@@ -11,7 +11,7 @@ await page.getByRole('tab', { name: 'Reviews (0)' }).click();
   // 3. กรอกชื่อผู้รีวิว
   await page.locator('#input-author').fill('Sam');
 
-  // 4. กรอกข้อความรีวิว (ทดสอบขอบเขตขั้นต่ำ 25 ตัวอักษรขึ้นไป)
+  // 4. กรอกข้อความรีวิว (ทดสอบขอบเขต 25 - 1000 ตัวอักษร)
   const validReviewText = 'The product is working perfectly fine.';
   await page.locator('#input-text').fill(validReviewText);
 

@@ -11,7 +11,7 @@ test('TC-PROD-19: เพิ่มสินค้าที่มีตัวเ�
  // 3. คลิกที่ชื่อสินค้า Canon EOS 5D ในหน้ารวมผลการค้นหา
   await page.locator('.product-thumb h4 a').click();
 
-  // 4. สั่งหมุนล้อเมาส์เลื่อนหน้าจอลงมาข้างล่าง 300 พิกเซลเพื่อให้เห็นช่อง Option ชัวร์ๆ
+  // 4. สั่งหมุนล้อเมาส์เลื่อนหน้าจอลงมาข้างล่าง 300 พิกเซลเพื่อให้เห็นช่องตัวเลือก Option
   await page.mouse.wheel(0, 300);
 
   // 5. เลือก Option สี Red (value='15')
@@ -23,7 +23,7 @@ test('TC-PROD-19: เพิ่มสินค้าที่มีตัวเ�
   // -----------------------------------------
   // Expected Result
   // -----------------------------------------
-  // ตรวจสอบว่าระบบแสดงแถบแจ้งเตือนความสำเร็จสีเขียว
+  // ตรวจสอบว่าระบบแสดงแถบแจ้งเตือนความสำเร็จ
   const successAlert = page.locator('.alert-success');
   await expect(successAlert).toContainText('Success: You have added Canon EOS 5D to your shopping cart!');
 });

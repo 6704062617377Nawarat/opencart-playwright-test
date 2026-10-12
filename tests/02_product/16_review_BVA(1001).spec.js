@@ -11,7 +11,7 @@ await page.getByRole('tab', { name: 'Reviews (0)' }).click();
   // 3. กรอกชื่อผู้รีวิว
   await page.locator('#input-author').fill('Sam');
 
-    // 4. กรอกข้อความรีวิว (ทดสอบขอบเขตต่ำกว่า 25 ตัวอักษร)
+    // 4. กรอกข้อความรีวิว (ทดสอบขอบเขตสูงกว่า 1000 ตัวอักษร)
   const longReviewText = 'A'.repeat(1001);
   await page.locator('#input-text').fill(longReviewText);
 
@@ -26,7 +26,7 @@ await page.getByRole('tab', { name: 'Reviews (0)' }).click();
    // ตรวจสอบข้อความเตือนเรื่องความยาวตัวอักษรโดยค้นหาจากข้อความตรงๆ
   await expect(page.getByText('Review Text must be between 25 and 1000 characters!')).toBeVisible();
 
-  // (ถ้าต้องการเช็กคำว่า Note: ด้วย ก็เพิ่มบรรทัดนี้ได้เลยครับ)
+  // เช็กคำว่า Note: ด้วย
   await expect(page.getByText('Note:')).toBeVisible();
 
 });

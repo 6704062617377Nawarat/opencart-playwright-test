@@ -26,7 +26,7 @@ await page.getByRole('tab', { name: 'Reviews (0)' }).click();
    // ตรวจสอบข้อความเตือนเรื่องความยาวตัวอักษรโดยค้นหาจากข้อความตรงๆ
   await expect(page.getByText('Review Text must be between 25 and 1000 characters!')).toBeVisible();
 
-  // (ถ้าต้องการเช็กคำว่า Note: ด้วย ก็เพิ่มบรรทัดนี้ได้เลยครับ)
+  // เช็กคำว่า Note: ด้วย
   await expect(page.getByText('Note:')).toBeVisible();
 
 });

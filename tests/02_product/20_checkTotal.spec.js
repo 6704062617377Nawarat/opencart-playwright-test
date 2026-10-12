@@ -21,13 +21,11 @@ test('TC-CART-20: ตรวจสอบการคำนวณยอดรว�
   // -----------------------------------------
   // Expected Result
   // -----------------------------------------
-  // ตรวจสอบว่าตารางในตะกร้าแสดงผลถูกต้องตามเงื่อนไข
-  // - ตรวจสอบจำนวน Quantity เป็น 1
+  // ตรวจสอบจำนวน Quantity เป็น 1
   const quantityInput = page.locator('input[name*="quantity"]');
   await expect(quantityInput).toHaveValue('1');
 
-  // - ตรวจสอบราคารวม (Total) ในตารางสินค้า เป็น $122.00
-  // เจาะจงหาข้อความ $122.00 ที่อยู่ในตารางตะกร้าสินค้า
+  // ตรวจสอบราคารวม (Total)แบบเจาะจงในตารางสินค้า เป็น $122.00
   const totalPriceCell = page.locator('.table-responsive tbody tr td').filter({ hasText: '$122.00' }).last();
   await expect(totalPriceCell).toBeVisible();
 });

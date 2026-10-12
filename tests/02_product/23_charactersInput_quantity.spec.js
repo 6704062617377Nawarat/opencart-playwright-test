@@ -14,8 +14,8 @@ test('TC-CART-23: ทดสอบการเปลี่ยนจำนวน�
   // 2. ไปที่หน้า Shopping Cart
   await page.getByRole('link', { name: 'shopping cart' }).click();
 
-  // 3. (Pre-condition) ปรับจำนวนเป็น 4 ชิ้นตามเงื่อนไขของเคส
-  await page.locator('input[name*="quantity"]').fill('4');
+  // 3. (Pre-condition) ปรับจำนวนเป็น 2 ชิ้นตามเงื่อนไขของเคส
+  await page.locator('input[name*="quantity"]').fill('2');
   await page.locator('input[name*="quantity"]').press('Enter');
 
   // *** บรรทัดที่ต้องเพิ่ม: รอให้หน้าเว็บโหลดเสร็จ โดยรอจนกว่าจะมีแถบแจ้งเตือน (Alert) โชว์ขึ้นมาก่อน ***

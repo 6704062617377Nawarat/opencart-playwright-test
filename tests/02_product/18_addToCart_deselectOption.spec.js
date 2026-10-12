@@ -11,12 +11,12 @@ test('TC-PROD-18: กดเพิ่มสินค้าที่มีตั�
   // 3. คลิกเข้าไปที่หน้าสินค้า
   await page.getByRole('link', { name: 'Canon EOS 5D' }).first().click();
 
-  // 4. กดปุ่ม Add to Cart ทันทีโดยยังไม่ได้เลือก Option บังคับ
+  // 4. กดปุ่ม Add to Cart โดยยังไม่ได้เลือก Option บังคับ
   await page.locator('#button-cart').click();
 
   // -----------------------------------------
   // Expected Result
-  // ตรวจสอบว่าระบบแสดงข้อความเตือนสีแดง "Select Required" ใต้ช่องตัวเลือก
+  // ตรวจสอบว่าระบบแสดงข้อความเตือน "Select Required" ใต้ช่องตัวเลือก
   const requiredMessage = page.getByText('Select Required!');
   await expect(requiredMessage).toBeVisible();
   // -----------------------------------------

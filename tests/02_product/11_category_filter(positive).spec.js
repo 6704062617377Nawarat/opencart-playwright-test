@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('TC-PROD-11: ทดสอบการกรองสินค้าตามหมวดหมู่ (Categories) แถบเมนูหลักด้านบน', async ({ page }) => {
 
+ // 1. ไปที่หน้าแรก
   await page.goto('http://localhost/opencart_test/');
 
   // 2. คลิกเมนูหลัก "Laptops & Notebooks" บนแถบ Navigation
