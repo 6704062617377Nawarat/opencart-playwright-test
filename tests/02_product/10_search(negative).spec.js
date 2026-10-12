@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('ทดสอบการค้นหาสินค้าที่ไม่มีอยู่ในคีย์เวิร์ด (แสดงข้อความไม่พบสินค้า)', async ({ page }) => {
+test('TC-PROD-10: ทดสอบการค้นหาสินค้าที่ไม่มีอยู่ในคีย์เวิร์ด (แสดงข้อความไม่พบสินค้า)', async ({ page }) => {
   await page.goto('http://localhost/opencart_test/');
   await page.getByRole('textbox', { name: 'Search' }).click();
   await page.getByRole('textbox', { name: 'Search' }).fill('qwertyuiop');

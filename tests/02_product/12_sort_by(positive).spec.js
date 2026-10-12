@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('ทดสอบการจัดเรียงสินค้าจากราคาต่ำไปสูง (Sort by Price: Low to High)', async ({ page }) => {
+test('TC-PROD-12: ทดสอบการจัดเรียงสินค้าจากราคาต่ำไปสูง (Sort by Price: Low to High)', async ({ page }) => {
   // 1. ไปหน้า Laptops & Notebooks
   await page.goto('http://localhost/opencart_test/');
   await page.getByRole('link', { name: 'Laptops & Notebooks' }).click();

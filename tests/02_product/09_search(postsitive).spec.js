@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('ทดสอบการค้นหาสินค้า Macbook', async ({ page }) => {
+test('TC-PROD-09: ทดสอบการค้นหาสินค้า Macbook', async ({ page }) => {
   await page.goto('http://localhost/opencart_test/');
   await page.getByRole('textbox', { name: 'Search' }).click();
   await page.getByRole('textbox', { name: 'Search' }).fill('Macbook');

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('ทดสอบการกรองสินค้าตามหมวดหมู่ (Categories) แถบเมนูหลักด้านบน', async ({ page }) => {
+test('TC-PROD-11: ทดสอบการกรองสินค้าตามหมวดหมู่ (Categories) แถบเมนูหลักด้านบน', async ({ page }) => {
 
   await page.goto('http://localhost/opencart_test/');
 
