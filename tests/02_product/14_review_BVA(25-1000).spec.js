@@ -27,7 +27,4 @@ await page.getByRole('tab', { name: 'Reviews (0)' }).click();
     const successMessage = page.locator('.alert-success');
     await expect(successMessage).toContainText('Thank you for your review. It has been submitted to the webmaster for approval.');
   // -----------------------------------------
-  // ตรวจสอบว่าระบบแสดงแถบแจ้งเตือนความสำเร็จสีเขียว
-  const successAlert = page.locator('.alert-success');
-  await expect(successAlert).toContainText('Thank you for your review. It has been submitted to the webmaster for approval.');
 });
