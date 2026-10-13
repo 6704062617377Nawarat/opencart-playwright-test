@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('TC-PROD-17: กดเพิ่มสินค้า (Add to Cart) จากหน้ารวมสินค้า', async ({ page }) => {
+test('TC-PROD-18: กดเพิ่มสินค้า (Add to Cart) จากหน้ารวมสินค้า', async ({ page }) => {
   // 1. ไปที่หน้าแรก
   await page.goto('http://localhost/opencart_test/');
 

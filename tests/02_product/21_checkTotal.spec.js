@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('TC-CART-20: ตรวจสอบการคำนวณยอดรวมในตะกร้าสินค้า (ราคา x จำนวน = ยอดรวม)', async ({ page }) => {
+test('TC-CART-21: ตรวจสอบการคำนวณยอดรวมในตะกร้าสินค้า (ราคา x จำนวน = ยอดรวม)', async ({ page }) => {
   // 1. ไปที่หน้าแรกและค้นหาสินค้า Canon EOS 5D
   await page.goto('http://localhost/opencart_test/');
   await page.getByRole('textbox', { name: 'Search' }).fill('Canon EOS 5D');

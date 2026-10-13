@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('TC-PROD-19: เพิ่มสินค้าที่มีตัวเลือกย่อยโดยเลือก Option แล้ว (Positive Testing)', async ({ page }) => {
+test('TC-PROD-20: เพิ่มสินค้าที่มีตัวเลือกย่อยโดยเลือก Option แล้ว (Positive Testing)', async ({ page }) => {
   // 1. ไปที่หน้าแรก
   await page.goto('http://localhost/opencart_test/');
 

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('TC-CART-23: ทดสอบการเปลี่ยนจำนวนสินค้าในตะกร้าเป็นตัวอักษร (Negative Testing)', async ({ page }) => {
+test('TC-CART-24: ทดสอบการเปลี่ยนจำนวนสินค้าในตะกร้าเป็นตัวอักษร (Negative Testing)', async ({ page }) => {
   // 1. ไปที่หน้าแรกและเพิ่มสินค้า Canon EOS 5D ลงตะกร้า
   await page.goto('http://localhost/opencart_test/');
   await page.getByRole('textbox', { name: 'Search' }).fill('Canon EOS 5D');

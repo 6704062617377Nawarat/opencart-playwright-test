@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('TC-PROD-13: ตรวจสอบการแสดงผลรายละเอียดสินค้า (ชื่อ, รูปภาพ, ราคา, สต็อก)', async ({ page }) => {
+test('TC-PROD-14: ตรวจสอบการแสดงผลรายละเอียดสินค้า (ชื่อ, รูปภาพ, ราคา, สต็อก)', async ({ page }) => {
   // 1. ไปที่หน้าแรก
   await page.goto('http://localhost/opencart_test/');
 

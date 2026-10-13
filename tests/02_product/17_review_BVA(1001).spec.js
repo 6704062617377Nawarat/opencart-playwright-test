@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('TC-PROD-16: เพิ่มรีวิวและให้คะแนนสินค้า (ความยาว 1001 ตัวอักษร - Invalid BVA)', async ({ page }) => {
+test('TC-PROD-17: เพิ่มรีวิวและให้คะแนนสินค้า (ความยาว 1001 ตัวอักษร - Invalid BVA)', async ({ page }) => {
   // 1. ไปที่หน้าแรกและเข้าหน้าสินค้า MacBook
   await page.goto('http://localhost/opencart_test/');
   await page.getByRole('link', { name: 'MacBook' }).first().click();
