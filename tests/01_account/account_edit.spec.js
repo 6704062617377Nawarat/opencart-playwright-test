@@ -1,9 +1,14 @@
 import { test, expect } from '@playwright/test';
 
 test('แก้ไขชื่อ นามสกุล และอีเมลของสมาชิก', async ({ page }, testInfo) => {
+  test.skip(
+    testInfo.project.name !== 'chromium',
+    'เทสต์นี้แก้ข้อมูลบัญชีเดียวกัน ให้รันเฉพาะ Chromium'
+  );
+
   const baseURL = String(testInfo.project.use.baseURL).replace(/\/$/, '');
 
-  // ใส่ข้อมูลบัญชี
+  // ใส่ข้อมูลบัญชีทดสอบของคุณ
   await page.goto(`${baseURL}/index.php?route=account/login`);
   await page.locator('input[name="email"]').fill('faypramika@gmail.com');
   await page.locator('input[name="password"]').fill('fy123456');
@@ -27,7 +32,7 @@ test('แก้ไขชื่อ นามสกุล และอีเมล
   const updatedLastName = 'UpdatedTest';
   const updatedEmail = `playwright.${Date.now()}@example.com`;
 
-  // ฟังก์ชันกดบันทึกและอ่านผลตอบกลับ AJAX จาก OpenCart
+  // บันทึกฟอร์มและอ่านผลตอบกลับจาก OpenCart
   const saveProfile = async () => {
     const responsePromise = page.waitForResponse((response) =>
       response.url().includes('route=account/edit.save') &&
@@ -47,13 +52,13 @@ test('แก้ไขชื่อ นามสกุล และอีเมล
   const updateResult = await saveProfile();
   expect(updateResult.success).toBeTruthy();
 
-  // โหลดหน้าใหม่เพื่อตรวจว่าข้อมูลถูกบันทึกจริง
+  // โหลดหน้าใหม่เพื่อตรวจว่าบันทึกข้อมูลแล้ว
   await page.reload();
   await expect(firstNameInput).toHaveValue(updatedFirstName);
   await expect(lastNameInput).toHaveValue(updatedLastName);
   await expect(emailInput).toHaveValue(updatedEmail);
 
-  // คืนค่าบัญชีเดิม เพื่อให้ยังล็อกอินได้ด้วยข้อมูลเดิมเมื่อรันครั้งถัดไป
+  // คืนข้อมูลเดิมเพื่อให้ล็อกอินด้วยบัญชีเดิมได้ในครั้งถัดไป
   await firstNameInput.fill(originalFirstName);
   await lastNameInput.fill(originalLastName);
   await emailInput.fill(originalEmail);
