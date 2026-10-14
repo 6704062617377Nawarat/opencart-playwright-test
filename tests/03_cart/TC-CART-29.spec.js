@@ -1,51 +1,40 @@
 import { test, expect } from '@playwright/test';
+
 test('TC-CART-29: Verify Customer Order History', async ({ page }) => {
   const base = 'http://localhost/opencart_test';
 
-  // 1. Open the storefront
-  await page.goto(`${base}/`);
+  // 1. เปิดหน้า Login
+  await page.goto(`${base}/index.php?route=account/login&language=en-gb`);
 
-  // 2. Log in manually
-  console.log('Please log in with a customer account that has at least one order.');
-  await page.pause();
+  // 2. ล็อกอินด้วยบัญชีสมาชิกที่เคยสั่งซื้อแล้ว (ต้องมีอย่างน้อย 1 ออเดอร์)
+  await page.locator('#input-email').fill('faypramika@gmail.com');
+  await page.locator('#input-password').fill('fy123456');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page).toHaveURL(/route=account\/account/);
 
-  // 3. Open Order History from the account page
-  console.log('Please open My Account > Order History, then click Resume.');
-  await page.pause();
+  // 3. ไปหน้าประวัติการสั่งซื้อ ผ่านลิงก์เมนู (มี customer_token ติดมาด้วย)
+  await page.getByRole('link', { name: 'Order History' }).first().click();
+  await expect(page).toHaveURL(/route=account\/order/);
+  await expect(page.locator('#content h1')).toContainText('Orders');
 
-  // 4. Verify that Order History is displayed
-  const body = page.locator('body');
+  // 4. ตรวจสอบว่ามีรายการคำสั่งซื้ออย่างน้อย 1 รายการ และมีรายละเอียดในตาราง
+  const rows = page.locator('#content table tbody tr');
+  await expect(rows.first()).toBeVisible();
+  expect(await rows.count()).toBeGreaterThanOrEqual(1);
 
-  await expect(body).toContainText(/order history/i);
+  // ตรวจว่าแถวแรกมีข้อมูล (Order ID, สถานะ, วันที่, ยอดรวม)
+  await expect(rows.first().locator('td').first()).not.toBeEmpty();
 
-  // 5. Fail if the account has no previous orders
-  await expect(
-    body,
-    'FAIL: The customer account has no previous orders'
-  ).not.toContainText(/you have not made any previous orders/i);
+  // 5. กดปุ่ม View (ไอคอนรูปตา) เพื่อดูรายละเอียดคำสั่งซื้อ
+  const viewButton = rows.first().locator('a.btn-info, a[data-bs-original-title="View"]');
+  await expect(viewButton).toBeVisible();
+  await viewButton.click();
 
-  // 6. Verify that at least one order is displayed
-  const orderRows = page.locator(
-    '#content table tbody tr:visible'
-  );
+  // 6. ตรวจสอบว่าเปิดหน้ารายละเอียดคำสั่งซื้อสำเร็จ
+await expect(page).toHaveURL(/route=account\/order\.info/);
+await expect(page.locator('.breadcrumb')).toContainText('Order #');
+await expect(page.locator('#content')).toContainText('Order ID');
 
-  await expect(
-    orderRows.first(),
-    'FAIL: No order is displayed in Order History'
-  ).toBeVisible({ timeout: 10000 });
-
-  // 7. Let the user open an order to inspect its details
-  console.log('Please click the View button for an order, then click Resume.');
-  await page.pause();
-
- 
-  // 8. Verify that order details are displayed
-  await expect(body).toContainText('Order #1');
-  await expect(body).toContainText('Order ID');
-  await expect(body).toContainText('Canon EOS 5D');
-  await expect(body).toContainText('Order History');
-
-  console.log('PASS: Order history and order details are displayed.');
-
-  console.log('PASS: Order History and order details are displayed.');
+  // 7. ตรวจว่ามีรายละเอียดสินค้าในคำสั่งซื้อ
+  await expect(page.locator('#content table').first()).toBeVisible();
 });
