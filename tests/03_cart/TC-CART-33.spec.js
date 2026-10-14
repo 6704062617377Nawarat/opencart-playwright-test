@@ -1,40 +1,43 @@
 import { test, expect } from '@playwright/test';
+
 test('TC-CART-33: Update Customer Order Status', async ({ page }) => {
   const base = 'http://localhost/opencart_test';
 
-  // 1. Open Admin Login
+  // 1. ล็อกอิน Admin
   await page.goto(`${base}/admin/`);
+  await page.locator('#input-username').fill(process.env.OC_ADMIN_USER);
+  await page.locator('#input-password').fill(process.env.OC_ADMIN_PASS);
+  await page.getByRole('button', { name: 'Login' }).click();
+  await expect(page).toHaveURL(/route=common\/dashboard/, { timeout: 10000 });
 
-  // 2. Log in manually
-  console.log('Please log in to the OpenCart Admin Panel.');
-  await page.pause();
+  await expect(page).toHaveURL(/route=common\/dashboard/, { timeout: 10000 });
 
-  // 3. Verify Admin Dashboard
-  await expect(page.locator('body')).toContainText(
-    'Dashboard',
-    { timeout: 10000 }
-  );
+// ปิด Security Notification ถ้ามี
+const securityModal = page.locator('.modal.show');
+if (await securityModal.isVisible({ timeout: 3000 }).catch(() => false)) {
+  await securityModal.locator('button.btn-close').click();
+  await expect(securityModal).toBeHidden();
+}
 
-  // 4. Open Orders page manually
-  console.log(
-    'Please open Sales > Orders and select an existing order.'
-  );
-  await page.pause();
+  // 2. เปิด Sales > Orders ผ่านเมนู (user_token ติดไปกับลิงก์)
+  await page.locator('#menu-sale > a').click();
+  await page.locator('#menu-sale').getByRole('link', { name: 'Orders' }).click();
+  await expect(page).toHaveURL(/route=sale\/order/);
 
-  // 5. Change the order status manually
-  console.log(
-    'Please edit the order, change its status (e.g. Pending to Shipped), and save.'
-  );
-  await page.pause();
+  // 3. เปิดออเดอร์แรกในรายการ (Precondition: ต้องมีอย่างน้อย 1 ออเดอร์)
+  const firstEdit = page.locator('#order tbody tr').first().locator('a[title="Edit"], a.btn-primary').first();
+  await expect(firstEdit).toBeVisible();
+  await firstEdit.click();
+  await expect(page).toHaveURL(/route=sale\/order\.info/);
 
-  // 6. Verify that the update was saved
-  await expect(
-    page.locator('body'),
-    'FAIL: Order status update success message was not displayed'
-  ).toContainText(
-    /success: you have modified orders|order.*modified successfully|successfully modified/i,
-    { timeout: 10000 }
-  );
+  // 4. เปลี่ยนสถานะเป็น Shipped แล้วบันทึก
+  const statusSelect = page.locator('#input-order-status');
+  await statusSelect.selectOption({ label: 'Shipped' });
+  await page.locator('#button-history').click();
 
-  console.log('PASS: Customer order status was updated successfully.');
+  // 5. ตรวจว่าบันทึกสำเร็จ
+  await expect(page.locator('.alert-success')).toContainText('Success', { timeout: 10000 });
+
+  // 6. ตรวจว่าสถานะล่าสุดแสดงในประวัติของออเดอร์
+  await expect(page.locator('#history')).toContainText('Shipped');
 });
